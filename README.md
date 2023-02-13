@@ -19,14 +19,35 @@
     ```
     3. curl node-ip:nodeport 
 
+
+### terminal
+
+command
+
 ```bash
-    ahmednasr@nasr-pc:~/helm/lab2$ helm install python-app-release ./python-app/
+    $ helm install python-app-release ./python-app/
+```
+
+output
+
+```bash
     NAME: python-app-release
     LAST DEPLOYED: Mon Feb 13 22:18:39 2023
     NAMESPACE: default
     STATUS: deployed
     REVISION: 1
-    ahmednasr@nasr-pc:~/helm/lab2$ k get all
+```
+
+command
+
+```bash
+    $ k get all
+```
+
+output
+
+```bash
+
     NAME                                                 READY   STATUS    RESTARTS   AGE
     pod/python-app-release-deployment-7cd44964d4-62xct   1/1     Running   0          10s
     pod/python-app-release-deployment-7cd44964d4-pnk74   1/1     Running   0          10s
@@ -44,7 +65,17 @@
     NAME                                                       DESIRED   CURRENT   READY   AGE
     replicaset.apps/python-app-release-deployment-7cd44964d4   2         2         2       10s
     replicaset.apps/python-app-release-redis-7ff784578f        1         1         1       10s
-    ahmednasr@nasr-pc:~/helm/lab2$ curl 192.168.49.2:30080
+```
+
+command
+
+```bash
+    $ curl 192.168.49.2:30080
+```
+
+output
+
+```bash
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -72,14 +103,14 @@
 
 ## install helm
 
-    ```bash
+```bash
     curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
     sudo apt-get install apt-transport-https --yes
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
     sudo apt-get update
     sudo apt-get install helm
 
-    ```
+```
 
 1. Add bitnami helm chart repository in the controlplane node.
 
