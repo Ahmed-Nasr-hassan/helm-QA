@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "python-app.fullname" . }}-configmap
+data:
+  {{- with  .Values.configmap }}
+  ENVIRONMENT: "{{ .env }}"
+  HOST: "{{ .host }}"
+  PORT: "{{ .port }}"
+  REDIS_HOST: "{{ .redisHost }}"
+  REDIS_PORT: "{{ .redisPort }}"
+  REDIS_DB: "{{ .redisDB }}"
+  {{- end }}

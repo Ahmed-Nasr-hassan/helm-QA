@@ -1,4 +1,74 @@
-# helm QA
+# helm kubernetes python-app & redis deployment
+
+## description
+
+- creating 2 helm charts one for python app and the other for redis from scratch using my own images in dockerhub (ahmednasrhassan/redis - ahmednasrhassan/devops-challenge)
+
+- define python app helm chart to be depnedent on redis chart to install both using one line :rocket: :rocket:
+
+```bash
+    helm install python-app-release ./python-app/
+```
+
+- testing the app :wink:
+    1. create nodeport service (in helm template)
+    2. get node ip
+
+    ```bash
+         kubectl get nodes -o wide
+    ```
+    3. curl node-ip:nodeport 
+
+```bash
+    ahmednasr@nasr-pc:~/helm/lab2$ helm install python-app-release ./python-app/
+    NAME: python-app-release
+    LAST DEPLOYED: Mon Feb 13 22:18:39 2023
+    NAMESPACE: default
+    STATUS: deployed
+    REVISION: 1
+    ahmednasr@nasr-pc:~/helm/lab2$ k get all
+    NAME                                                 READY   STATUS    RESTARTS   AGE
+    pod/python-app-release-deployment-7cd44964d4-62xct   1/1     Running   0          10s
+    pod/python-app-release-deployment-7cd44964d4-pnk74   1/1     Running   0          10s
+    pod/python-app-release-redis-7ff784578f-8wb5p        1/1     Running   0          10s
+
+    NAME                                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+    service/kubernetes                   ClusterIP   10.96.0.1       <none>        443/TCP          10h
+    service/python-app-release-service   NodePort    10.101.30.154   <none>        8000:30080/TCP   10s
+    service/redis                        ClusterIP   10.98.138.48    <none>        6379/TCP         10s
+
+    NAME                                            READY   UP-TO-DATE   AVAILABLE   AGE
+    deployment.apps/python-app-release-deployment   2/2     2            2           10s
+    deployment.apps/python-app-release-redis        1/1     1            1           10s
+
+    NAME                                                       DESIRED   CURRENT   READY   AGE
+    replicaset.apps/python-app-release-deployment-7cd44964d4   2         2         2       10s
+    replicaset.apps/python-app-release-redis-7ff784578f        1         1         1       10s
+    ahmednasr@nasr-pc:~/helm/lab2$ curl 192.168.49.2:30080
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css?v=64d12fd9c6484b319e192082c6c64592">
+    <title>Hello, world!</title>
+    </head>
+    <body>
+    <div>
+    <p>
+    👋 Hi from
+    <span class="highlight" id="NASR">NASR</span>
+    environment!
+    </p>
+    <p><span class="counter">Counter:</span> 1</p>
+    </div>
+    <div>
+    <button type="button" onClick="window.location.reload()">Reload</button>
+    </div>
+    </body>
+    </html>
+```
+
+## helm QA
 
 ## install helm
 
@@ -127,4 +197,3 @@ Set the release Name to: amaze-surf
     3               Sun Feb 12 11:35:49 2023        deployed        nginx-12.0.6    1.22.0          Rollback to 1  
 
     ```
-

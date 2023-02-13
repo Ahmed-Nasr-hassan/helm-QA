@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: ahmednasrhassan/redis
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 6379
+  name: redis

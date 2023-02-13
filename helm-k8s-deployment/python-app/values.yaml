@@ -1,0 +1,28 @@
+replicaCount: 2
+
+image:
+  repository: ahmednasrhassan/devops-challenge
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 8000
+  targetPort: 8000
+  nodePort: 30080
+
+configmap:
+    env: "NASR"
+    host: "localhost"
+    port: "8000"
+    redisHost: "redis"
+    redisPort: "6379"
+    redisDB: "0" 
+  
+
+resources: {}
+
